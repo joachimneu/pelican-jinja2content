@@ -1,0 +1,2 @@
+pelican-jinja2content
+=====================
