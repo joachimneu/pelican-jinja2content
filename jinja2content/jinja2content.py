@@ -6,7 +6,7 @@ from pelican import contents
 from jinja2 import Environment, Template, ChoiceLoader, FileSystemLoader
 
 def execjinja2(instance):
-	if isinstance(instance, contents.Article):
+	if type(instance) in (contents.Article, contents.Page):
 		base_path = os.path.dirname(os.path.abspath(__file__))
 		jinja2_env = Environment(
 			trim_blocks=True,
@@ -17,7 +17,10 @@ def execjinja2(instance):
 			extensions=instance.settings['JINJA_EXTENSIONS'],
 		)
 		jinja2_template = jinja2_env.from_string(instance._content)
-		instance._content = jinja2_template.render(article=instance)
+		if type(instance) is contents.Article:
+			instance._content = jinja2_template.render(article=instance)
+		elif type(instance) is contents.Page:
+			instance._content = jinja2_template.render(page=instance)
 
 def register():
 	signals.content_object_init.connect(execjinja2)
