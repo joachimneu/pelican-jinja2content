@@ -21,10 +21,14 @@ def execjinja2(instance):
             extensions=instance.settings['JINJA_EXTENSIONS'],
         )
         jinja2_template = jinja2_env.from_string(instance._content)
+
+        kwargs = instance._context
         if type(instance) is contents.Article:
-            instance._content = jinja2_template.render(article=instance)
+            kwargs['article'] = instance
         elif type(instance) is contents.Page:
-            instance._content = jinja2_template.render(page=instance)
+            kwargs['page'] = instance
+
+        instance._content = jinja2_template.render(**kwargs)
 
 
 def register():
