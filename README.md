@@ -1,3 +1,5 @@
+## This repository is unmaintained and out of date, use [the `jinja2content` plugin shipped with `pelican-plugins`](https://github.com/getpelican/pelican-plugins/tree/master/jinja2content) instead!
+
 pelican-jinja2content
 =====================
 
